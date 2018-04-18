@@ -7,13 +7,17 @@
   
   <title>mengshuobuyi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="WKWebView使用的一些记录最近项目中用到前端写的一个白板，所以要用webview显示，由于是本地html且受到JSCore的诱惑，一开始使用的是UIWebView。开发的时候是很愉快，但是很快问题来了，webview在绘制文档pdf的时候会发生内核崩溃（o(≧口≦)o崩溃），这下只能用WK替换掉UI了。 ###加载本地html苹果粑粑总是会给我们特别的爱，比如说WK不能用loadReque">
+<meta property="og:type" content="article">
 <meta property="og:title" content="mengshuobuyi">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/04/18/WKWebView/index.html">
 <meta property="og:site_name" content="mengshuobuyi">
+<meta property="og:description" content="WKWebView使用的一些记录最近项目中用到前端写的一个白板，所以要用webview显示，由于是本地html且受到JSCore的诱惑，一开始使用的是UIWebView。开发的时候是很愉快，但是很快问题来了，webview在绘制文档pdf的时候会发生内核崩溃（o(≧口≦)o崩溃），这下只能用WK替换掉UI了。 ###加载本地html苹果粑粑总是会给我们特别的爱，比如说WK不能用loadReque">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-18T07:44:02.055Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mengshuobuyi">
+<meta name="twitter:description" content="WKWebView使用的一些记录最近项目中用到前端写的一个白板，所以要用webview显示，由于是本地html且受到JSCore的诱惑，一开始使用的是UIWebView。开发的时候是很愉快，但是很快问题来了，webview在绘制文档pdf的时候会发生内核崩溃（o(≧口≦)o崩溃），这下只能用WK替换掉UI了。 ###加载本地html苹果粑粑总是会给我们特别的爱，比如说WK不能用loadReque">
   
     <link rel="alternate" href="/atom.xml" title="mengshuobuyi" type="application/atom+xml">
   
@@ -60,9 +64,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-WKWebView" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-WKWebView" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/04/18/WKWebView/" class="article-date">
   <time datetime="2018-04-18T06:49:17.937Z" itemprop="datePublished">2018-04-18</time>
@@ -94,117 +96,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-FirstBlog" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/04/18/FirstBlog/" class="article-date">
-  <time datetime="2018-04-18T02:51:26.917Z" itemprop="datePublished">2018-04-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/18/FirstBlog/">OC底层知识的一些学习</a>
-    </h1>
+    <a href="/2018/04/18/FirstBlog/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">OC底层知识的一些学习</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>学过OC的童鞋都知道，我们所使用的OC底层都是C/C++实现的，我们可以通过终端指令，将OC代码转换成C++代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc 文件名 -o 输出的CPP文件</span><br></pre></td></tr></table></figure></p>
-<p>试过的童鞋都知道，转换过的那坨代码非常的晦涩难懂，想搞懂它们，还得从OC的底层实现开始学习。</p>
-<p>###对象和类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">struct objc_object &#123;</span><br><span class="line">private:</span><br><span class="line">isa_t isa;</span><br><span class="line">public:</span><br><span class="line">...</span><br><span class="line">private:</span><br><span class="line">...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>这是runtime中对object的一个定义，可以看出，他本质上是一个结构体，它有一个私有的成员isa。<br>再来看Class的定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">struct objc_class : objc_object &#123;</span><br><span class="line">// Class ISA;</span><br><span class="line">Class superclass;</span><br><span class="line">cache_t cache;             // formerly cache pointer and vtable</span><br><span class="line">class_data_bits_t bits;    // class_rw_t * plus custom rr/alloc flags</span><br><span class="line"></span><br><span class="line">class_rw_t *data() &#123; </span><br><span class="line">return bits.data();</span><br><span class="line">&#125;</span><br><span class="line">void setData(class_rw_t *newData) &#123;</span><br><span class="line">bits.setData(newData);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>可以发现，它是继承自objc_object的，这说明类也是一个对象！</p>
-<p>###isa和superclass的调用流程</p>
-<ul>
-<li><p>instance的isa指向class</p>
-</li>
-<li><p>class的isa指向meta-class</p>
-</li>
-<li><p>meta-class的isa指向基类的meta-class</p>
-</li>
-<li><p>class的superclass指向父类的class</p>
-</li>
-<li><p>如果没有父类，superclass指针为nil</p>
-</li>
-<li><p>meta-class的superclass指向父类的meta-class</p>
-</li>
-<li><p>基类的meta-class的superclass指向基类的class</p>
-</li>
-<li><p>instance调用对象方法的轨迹</p>
-<ul>
-<li>isa找到class，方法不存在，就通过superclass找父类</li>
-<li>父类也不存在，则走消息转发</li>
-</ul>
-</li>
-<li><p>class调用类方法的轨迹</p>
-<ul>
-<li>isa找meta-class，方法不存在，就通过superclass找父类</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/18/FirstBlog/" data-id="cjg4skyfz0001jixsufjwgk5v" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/04/18/hello-world/" class="article-date">
-  <time datetime="2018-04-18T02:31:24.637Z" itemprop="datePublished">2018-04-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/18/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>拖延了许久，终于搭建了自己的个人blog（惭愧~），希望在这边记录下自己学习的脚步~</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/18/hello-world/" data-id="cjg4skyg10002jixsh5b6s11p" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
