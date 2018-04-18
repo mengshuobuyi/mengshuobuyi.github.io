@@ -5,19 +5,19 @@
   
 
   
-  <title>mengshuobuyi</title>
+  <title>WKWebView使用的一些记录 | mengshuobuyi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="WKWebView使用的一些记录最近项目中用到前端写的一个白板，所以要用webview显示，由于是本地html且受到JSCore的诱惑，一开始使用的是UIWebView。开发的时候是很愉快，但是很快问题来了，webview在绘制文档pdf的时候会发生内核崩溃（o(≧口≦)o崩溃），这下只能用WK替换掉UI了。 加载本地html苹果粑粑总是会给我们特别的爱，比如说WK不能用loadRequest的">
+  <meta name="description" content="最近项目中用到前端写的一个白板，所以要用webview显示，由于是本地html且受到JSCore的诱惑，一开始使用的是UIWebView。开发的时候是很愉快，但是很快问题来了，webview在绘制文档pdf的时候会发生内核崩溃（o(≧口≦)o崩溃），这下只能用WK替换掉UI了。 加载本地html苹果粑粑总是会给我们特别的爱，比如说WK不能用loadRequest的方式加载本地html，甚至在iOS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mengshuobuyi">
+<meta property="og:title" content="WKWebView使用的一些记录">
 <meta property="og:url" content="http://yoursite.com/2018/04/18/WKWebView/index.html">
 <meta property="og:site_name" content="mengshuobuyi">
-<meta property="og:description" content="WKWebView使用的一些记录最近项目中用到前端写的一个白板，所以要用webview显示，由于是本地html且受到JSCore的诱惑，一开始使用的是UIWebView。开发的时候是很愉快，但是很快问题来了，webview在绘制文档pdf的时候会发生内核崩溃（o(≧口≦)o崩溃），这下只能用WK替换掉UI了。 加载本地html苹果粑粑总是会给我们特别的爱，比如说WK不能用loadRequest的">
+<meta property="og:description" content="最近项目中用到前端写的一个白板，所以要用webview显示，由于是本地html且受到JSCore的诱惑，一开始使用的是UIWebView。开发的时候是很愉快，但是很快问题来了，webview在绘制文档pdf的时候会发生内核崩溃（o(≧口≦)o崩溃），这下只能用WK替换掉UI了。 加载本地html苹果粑粑总是会给我们特别的爱，比如说WK不能用loadRequest的方式加载本地html，甚至在iOS">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-18T07:48:24.658Z">
+<meta property="og:updated_time" content="2018-04-18T07:49:16.466Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mengshuobuyi">
-<meta name="twitter:description" content="WKWebView使用的一些记录最近项目中用到前端写的一个白板，所以要用webview显示，由于是本地html且受到JSCore的诱惑，一开始使用的是UIWebView。开发的时候是很愉快，但是很快问题来了，webview在绘制文档pdf的时候会发生内核崩溃（o(≧口≦)o崩溃），这下只能用WK替换掉UI了。 加载本地html苹果粑粑总是会给我们特别的爱，比如说WK不能用loadRequest的">
+<meta name="twitter:title" content="WKWebView使用的一些记录">
+<meta name="twitter:description" content="最近项目中用到前端写的一个白板，所以要用webview显示，由于是本地html且受到JSCore的诱惑，一开始使用的是UIWebView。开发的时候是很愉快，但是很快问题来了，webview在绘制文档pdf的时候会发生内核崩溃（o(≧口≦)o崩溃），这下只能用WK替换掉UI了。 加载本地html苹果粑粑总是会给我们特别的爱，比如说WK不能用loadRequest的方式加载本地html，甚至在iOS">
   
     <link rel="alternate" href="/atom.xml" title="mengshuobuyi" type="application/atom+xml">
   
@@ -74,10 +74,19 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      WKWebView使用的一些记录
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="WKWebView使用的一些记录"><a href="#WKWebView使用的一些记录" class="headerlink" title="WKWebView使用的一些记录"></a>WKWebView使用的一些记录</h2><p>最近项目中用到前端写的一个白板，所以要用webview显示，由于是本地html且受到JSCore的诱惑，一开始使用的是UIWebView。开发的时候是很愉快，但是很快问题来了，webview在绘制文档pdf的时候会发生内核崩溃（o(≧口≦)o崩溃），这下只能用WK替换掉UI了。</p>
+        <p>最近项目中用到前端写的一个白板，所以要用webview显示，由于是本地html且受到JSCore的诱惑，一开始使用的是UIWebView。开发的时候是很愉快，但是很快问题来了，webview在绘制文档pdf的时候会发生内核崩溃（o(≧口≦)o崩溃），这下只能用WK替换掉UI了。</p>
 <h3 id="加载本地html"><a href="#加载本地html" class="headerlink" title="加载本地html"></a>加载本地html</h3><p>苹果粑粑总是会给我们特别的爱，比如说WK不能用loadRequest的方式加载本地html，甚至在iOS9之前，需要把html加载到沙盒里才能读取，幸运的是公司不用兼容iOS9以下，哈哈</p>
 <p>言归正传，iOS9之后，WK加载本地html的姿势应该是这样的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSString* path = [[NSBundle mainBundle] pathForResource:@&quot;whitePad&quot; ofType:@&quot;html&quot;];</span><br><span class="line">NSURL* url = [NSURL fileURLWithPath:path];</span><br><span class="line">[self.wkWeb loadFileURL:url allowingReadAccessToURL:url];</span><br></pre></td></tr></table></figure></p>
 <h3 id="Alert弹窗"><a href="#Alert弹窗" class="headerlink" title="Alert弹窗"></a>Alert弹窗</h3><p>搞定了加载，下面该轮到调试了，做过hybird开发的童鞋都知道alert大法，可是苹果粑粑又给我们刨了个坑，所有的alert都没有默认实现，要实现弹窗，我们需要实现WK的UIDelegate协议<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler&#123;</span><br><span class="line">UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@&quot;提示&quot; message:message?:@&quot;&quot; preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line">[alertController addAction:([UIAlertAction actionWithTitle:@&quot;确认&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">completionHandler();</span><br><span class="line">&#125;])];</span><br><span class="line">[self presentViewController:alertController animated:YES completion:nil];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">- (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler&#123;</span><br><span class="line">UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@&quot;提示&quot; message:message?:@&quot;&quot; preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line">[alertController addAction:([UIAlertAction actionWithTitle:@&quot;取消&quot; style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">completionHandler(NO);</span><br><span class="line">&#125;])];</span><br><span class="line">[alertController addAction:([UIAlertAction actionWithTitle:@&quot;确认&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">completionHandler(YES);</span><br><span class="line">&#125;])];</span><br><span class="line">[self presentViewController:alertController animated:YES completion:nil];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable))completionHandler&#123;</span><br><span class="line">UIAlertController *alertController = [UIAlertController alertControllerWithTitle:prompt message:@&quot;&quot; preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line">[alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) &#123;</span><br><span class="line">textField.text = defaultText;</span><br><span class="line">&#125;];</span><br><span class="line">[alertController addAction:([UIAlertAction actionWithTitle:@&quot;完成&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">completionHandler(alertController.textFields[0].text?:@&quot;&quot;);</span><br><span class="line">&#125;])];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[self presentViewController:alertController animated:YES completion:nil];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -90,7 +99,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/18/WKWebView/" data-id="cjg4spc4s0001l7xsntiutmp1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/04/18/WKWebView/" data-id="cjg4sqifw0001lrxsx79akxx6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -139,7 +148,7 @@
       <ul>
         
           <li>
-            <a href="/2018/04/18/WKWebView/">(no title)</a>
+            <a href="/2018/04/18/WKWebView/">WKWebView使用的一些记录</a>
           </li>
         
           <li>
