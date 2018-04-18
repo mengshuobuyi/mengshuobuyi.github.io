@@ -7,17 +7,17 @@
   
   <title>OC底层知识的一些学习 | mengshuobuyi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学过OC的童鞋都知道，我们所使用的OC底层都是C/C++实现的，我们可以通过终端指令，将OC代码转换成C++代码1xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc 文件名 -o 输出的CPP文件 试过的童鞋都知道，转换过的那坨代码非常的晦涩难懂，想搞懂它们，还得从OC的底层实现开始学习。 ###对象和类12345678struct objc_o">
+  <meta name="description" content="学过OC的童鞋都知道，我们所使用的OC底层都是C/C++实现的，我们可以通过终端指令，将OC代码转换成C++代码1xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc 文件名 -o 输出的CPP文件 试过的童鞋都知道，转换过的那坨代码非常的晦涩难懂，想搞懂它们，还得从OC的底层实现开始学习。 对象和类12345678struct objc_obje">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OC底层知识的一些学习">
 <meta property="og:url" content="http://yoursite.com/2018/04/18/FirstBlog/index.html">
 <meta property="og:site_name" content="mengshuobuyi">
-<meta property="og:description" content="学过OC的童鞋都知道，我们所使用的OC底层都是C/C++实现的，我们可以通过终端指令，将OC代码转换成C++代码1xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc 文件名 -o 输出的CPP文件 试过的童鞋都知道，转换过的那坨代码非常的晦涩难懂，想搞懂它们，还得从OC的底层实现开始学习。 ###对象和类12345678struct objc_o">
+<meta property="og:description" content="学过OC的童鞋都知道，我们所使用的OC底层都是C/C++实现的，我们可以通过终端指令，将OC代码转换成C++代码1xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc 文件名 -o 输出的CPP文件 试过的童鞋都知道，转换过的那坨代码非常的晦涩难懂，想搞懂它们，还得从OC的底层实现开始学习。 对象和类12345678struct objc_obje">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-18T06:47:17.312Z">
+<meta property="og:updated_time" content="2018-04-18T07:48:08.521Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OC底层知识的一些学习">
-<meta name="twitter:description" content="学过OC的童鞋都知道，我们所使用的OC底层都是C/C++实现的，我们可以通过终端指令，将OC代码转换成C++代码1xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc 文件名 -o 输出的CPP文件 试过的童鞋都知道，转换过的那坨代码非常的晦涩难懂，想搞懂它们，还得从OC的底层实现开始学习。 ###对象和类12345678struct objc_o">
+<meta name="twitter:description" content="学过OC的童鞋都知道，我们所使用的OC底层都是C/C++实现的，我们可以通过终端指令，将OC代码转换成C++代码1xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc 文件名 -o 输出的CPP文件 试过的童鞋都知道，转换过的那坨代码非常的晦涩难懂，想搞懂它们，还得从OC的底层实现开始学习。 对象和类12345678struct objc_obje">
   
     <link rel="alternate" href="/atom.xml" title="mengshuobuyi" type="application/atom+xml">
   
@@ -88,11 +88,10 @@
       
         <p>学过OC的童鞋都知道，我们所使用的OC底层都是C/C++实现的，我们可以通过终端指令，将OC代码转换成C++代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc 文件名 -o 输出的CPP文件</span><br></pre></td></tr></table></figure></p>
 <p>试过的童鞋都知道，转换过的那坨代码非常的晦涩难懂，想搞懂它们，还得从OC的底层实现开始学习。</p>
-<p>###对象和类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">struct objc_object &#123;</span><br><span class="line">private:</span><br><span class="line">isa_t isa;</span><br><span class="line">public:</span><br><span class="line">...</span><br><span class="line">private:</span><br><span class="line">...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="对象和类"><a href="#对象和类" class="headerlink" title="对象和类"></a>对象和类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">struct objc_object &#123;</span><br><span class="line">private:</span><br><span class="line">isa_t isa;</span><br><span class="line">public:</span><br><span class="line">...</span><br><span class="line">private:</span><br><span class="line">...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>这是runtime中对object的一个定义，可以看出，他本质上是一个结构体，它有一个私有的成员isa。<br>再来看Class的定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">struct objc_class : objc_object &#123;</span><br><span class="line">// Class ISA;</span><br><span class="line">Class superclass;</span><br><span class="line">cache_t cache;             // formerly cache pointer and vtable</span><br><span class="line">class_data_bits_t bits;    // class_rw_t * plus custom rr/alloc flags</span><br><span class="line"></span><br><span class="line">class_rw_t *data() &#123; </span><br><span class="line">return bits.data();</span><br><span class="line">&#125;</span><br><span class="line">void setData(class_rw_t *newData) &#123;</span><br><span class="line">bits.setData(newData);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>可以发现，它是继承自objc_object的，这说明类也是一个对象！</p>
-<p>###isa和superclass的调用流程</p>
-<ul>
+<h3 id="isa和superclass的调用流程"><a href="#isa和superclass的调用流程" class="headerlink" title="isa和superclass的调用流程"></a>isa和superclass的调用流程</h3><ul>
 <li><p>instance的isa指向class</p>
 </li>
 <li><p>class的isa指向meta-class</p>
@@ -123,7 +122,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/18/FirstBlog/" data-id="cjg4sncuw0000kjxsedjev0h2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/04/18/FirstBlog/" data-id="cjg4spc4o0000l7xs4sqrvpl2" class="article-share-link">Share</a>
       
       
     </footer>
