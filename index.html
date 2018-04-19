@@ -62,6 +62,66 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-IAP" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/19/IAP/" class="article-date">
+  <time datetime="2018-04-19T01:24:15.850Z" itemprop="datePublished">2018-04-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/19/IAP/">IAP支付相关</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>公司项目暂时告一段落，趁着测试的时间，赶紧预研一下下个版本的大头–支付相关。由于公司的产品属于虚拟物品，估计是逃不过苹果粑粑的手心，还是着重看一下IAP相关吧。</p>
+<h3 id="先来看看IAP的支付流程"><a href="#先来看看IAP的支付流程" class="headerlink" title="先来看看IAP的支付流程"></a>先来看看IAP的支付流程</h3><ul>
+<li>用户购买，我们自己的服务器创建一个交易订单，返回给APP</li>
+<li>APP拿到交易信息，调起IAP服务创建订单并把订单推入支付队列</li>
+<li>IAP和IAP服务器通讯，让用户确认购买</li>
+<li>IAP服务器回调给APP，通知购买结果，成功就将收据写入APP沙盒</li>
+<li>APP去沙盒获取收据信息，将收据上传服务器</li>
+<li>服务器获取收据，去IAP服务器查询该收据对应的订单号</li>
+<li>服务器校验该订单是否已付款，有就告诉APP</li>
+<li>APP获取到结果，做相关处理</li>
+</ul>
+<p>看完上面的流程，是不是感觉还不错，苹果粑粑还是很贴心的不是？往下看</p>
+<h3 id="再来看看支付宝-微信的流程"><a href="#再来看看支付宝-微信的流程" class="headerlink" title="再来看看支付宝/微信的流程"></a>再来看看支付宝/微信的流程</h3><ul>
+<li>用户购买，我们自己的服务器创建一个交易订单，返回给APP</li>
+<li>APP拿到交易信息，调起支付宝SDK，SDK将交易信息传给支付宝服务器</li>
+<li>支付宝服务器验证该交易，通过后告诉支付宝SDK验证通过</li>
+<li>SDK通知APP，APP调起支付宝APP，用户完成支付</li>
+<li>支付成功，支付宝服务器回调支付宝APP</li>
+<li>支付宝返回我们的APP，在openURL里面回调支付结果，我们APP的工作到这一步就算完了</li>
+<li>支付宝会一直回调我们的服务器，直到服务器确认收到收据信息</li>
+</ul>
+<p>对比一看，没啥大毛病，仔细一分析，这是何等的巨坑！<br>对于支付宝，只要移动端确实付款完成，那么接下来的验证工作都是服务器于服务器之间的通讯。这样一来，只要用户确实产生了一笔交易，那么接下来的验证就变得可靠的多，而且支付宝服务器会一直回调我们的服务器，交易的可靠性得到了极大的保证。<br>但是IAP在验证交易环境却是需要移动端来驱动服务器查询，可是移动端的网络环境远比服务端复杂的多，万一移动端与服务器的通讯出现波动❓</p>
+<h3 id="细数IAP的坑"><a href="#细数IAP的坑" class="headerlink" title="细数IAP的坑"></a>细数IAP的坑</h3><p>1 用户购买成功之后，网络波动，IAP收不到IAP服务器支付成功的通知<br>2 IAP通知我们支付成功，我们通知服务器去IAP服务器验证订单，因为IAP服务器远在美国，结果不能保障，若失败的话，我们只有下次触发验证的时候才会重新去验证，周期不可控<br>3 当验证交易成功以后我们去取 IAP 的待验证交易列表的时候，这个列表没有数据<br>4 如果用户的交易还没有得到验证，就把 APP 给卸载了，以后要怎么恢复那些没有被验证的订单<br>5 越狱❓</p>
+<p>先写到这边，未完待续…</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/19/IAP/" data-id="cjg64rb9t0000z7xs7qikmebb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-WKWebView" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/04/18/WKWebView/" class="article-date">
@@ -97,7 +157,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/18/WKWebView/" data-id="cjg4sqifw0001lrxsx79akxx6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/04/18/WKWebView/" data-id="cjg64rb9y0001z7xscubr4bxj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -165,7 +225,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/18/FirstBlog/" data-id="cjg4sqifs0000lrxsdf5e1w9g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/04/18/FirstBlog/" data-id="cjg64rba10003z7xsrecbf3qd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -202,7 +262,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/18/hello-world/" data-id="cjg4sqifz0002lrxsik1t25u7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/04/18/hello-world/" data-id="cjg64rba00002z7xsw5bxoysc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -241,6 +301,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/04/19/IAP/">IAP支付相关</a>
+          </li>
         
           <li>
             <a href="/2018/04/18/WKWebView/">WKWebView使用的一些记录</a>
