@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="mengshuobuyi">
 <meta property="og:description" content="学过OC的童鞋都知道，我们所使用的OC底层都是C/C++实现的，我们可以通过终端指令，将OC代码转换成C++代码1xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc 文件名 -o 输出的CPP文件 试过的童鞋都知道，转换过的那坨代码非常的晦涩难懂，想搞懂它们，还得从OC的底层实现开始学习。 对象和类12345678struct objc_obje">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-18T07:48:08.521Z">
+<meta property="og:updated_time" content="2018-04-20T01:07:15.263Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OC底层知识的一些学习">
 <meta name="twitter:description" content="学过OC的童鞋都知道，我们所使用的OC底层都是C/C++实现的，我们可以通过终端指令，将OC代码转换成C++代码1xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc 文件名 -o 输出的CPP文件 试过的童鞋都知道，转换过的那坨代码非常的晦涩难懂，想搞懂它们，还得从OC的底层实现开始学习。 对象和类12345678struct objc_obje">
@@ -91,6 +91,7 @@
 <h3 id="对象和类"><a href="#对象和类" class="headerlink" title="对象和类"></a>对象和类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">struct objc_object &#123;</span><br><span class="line">private:</span><br><span class="line">isa_t isa;</span><br><span class="line">public:</span><br><span class="line">...</span><br><span class="line">private:</span><br><span class="line">...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>这是runtime中对object的一个定义，可以看出，他本质上是一个结构体，它有一个私有的成员isa。<br>再来看Class的定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">struct objc_class : objc_object &#123;</span><br><span class="line">// Class ISA;</span><br><span class="line">Class superclass;</span><br><span class="line">cache_t cache;             // formerly cache pointer and vtable</span><br><span class="line">class_data_bits_t bits;    // class_rw_t * plus custom rr/alloc flags</span><br><span class="line"></span><br><span class="line">class_rw_t *data() &#123; </span><br><span class="line">return bits.data();</span><br><span class="line">&#125;</span><br><span class="line">void setData(class_rw_t *newData) &#123;</span><br><span class="line">bits.setData(newData);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>可以发现，它是继承自objc_object的，这说明类也是一个对象！</p>
+<h3 id="isa指针的作用与元类"><a href="#isa指针的作用与元类" class="headerlink" title="isa指针的作用与元类"></a>isa指针的作用与元类</h3><p>isa包含了什么呢？在这之前，需要知道另外一个概念 元类（metaclass）<br>在OC中，对象的方法没有储存于对象的结构体中（如果每一个对象都保存的话，对内存的占用将会有极大的影响）<br>当实例方法被调用时，实例通过自己的isa来查找对应的类，然后再在class_data_bits_t 结构体中查找对应的方法实现。每一个objc_class也有一个指向自己父类的指针superclass用来查找继承的方法。<br>当类方法调用时，通过类的isa在元类中获取方法实现，而根元类的isa是指向自己的，这样就形成了一个完美的闭环。</p>
 <h3 id="isa和superclass的调用流程"><a href="#isa和superclass的调用流程" class="headerlink" title="isa和superclass的调用流程"></a>isa和superclass的调用流程</h3><ul>
 <li><p>instance的isa指向class</p>
 </li>
@@ -122,7 +123,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/18/FirstBlog/" data-id="cjg64rba10003z7xsrecbf3qd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/04/18/FirstBlog/" data-id="cjgpuzdaw00024ixsn8mgkoyj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -167,7 +168,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
     </div>
   </div>
 
@@ -178,6 +179,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/05/03/autoreleasepool/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2018/04/19/IAP/">IAP支付相关</a>
